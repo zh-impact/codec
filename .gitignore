@@ -1,6 +1,3 @@
-# Keep .gitkeep
-!.gitkeep
-
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -14,3 +11,6 @@ wheels/
 
 # Output files
 output/*
+
+# Keep .gitkeep should be last
+!.gitkeep
