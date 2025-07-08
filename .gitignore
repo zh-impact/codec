@@ -1,3 +1,6 @@
+# Keep .gitkeep
+!.gitkeep
+
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -8,3 +11,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Output files
+output/*
