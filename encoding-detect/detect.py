@@ -1,3 +1,4 @@
+import os
 import chardet
 import click
 
@@ -10,9 +11,11 @@ def cli(ctx):
 @cli.command()
 @click.help_option('-h', '--help')
 @click.argument('filepath', type=click.Path(exists=True, dir_okay=False))
-@click.argument('output_filepath', type=click.Path(dir_okay=False))
-def detect(filepath, output_filepath):
-    click.echo(f"Detecting encoding for {filepath}")
+def detect(filepath):
+    click.echo(f"Converting encoding for {filepath}")
+
+    filename = os.path.basename(filepath)
+    output_filepath = os.path.join('output', filename)
 
     with open(filepath, 'rb') as f:
         raw_data = f.read()
@@ -21,7 +24,6 @@ def detect(filepath, output_filepath):
 
     try:
         text = raw_data.decode(result['encoding'])
-        click.echo(len(text))
         click.echo(f"Decoded with {result['encoding']} successfully")
     except UnicodeDecodeError as e:
         click.echo(f"Failed to decode file with {result['encoding']} encoding")
@@ -42,7 +44,7 @@ def detect(filepath, output_filepath):
             print(f"UnicodeDecodeError: {e}")
     finally:
         click.echo("Writing to output file...")
-        click.echo(text)
+        # click.echo(text)
         open(output_filepath, 'w', encoding='utf-8').write(text)
         click.echo("Done")
 
